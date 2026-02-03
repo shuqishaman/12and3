@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>你的名字｜个人作品集</title>
+  <meta name="description" content="个人作品集：项目、技能、经历与联系方式。" />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#111936;
+      --text:#e8ecff;
+      --muted:#aab3d6;
+      --brand:#6aa8ff;
+      --brand2:#8b5cf6;
+      --border:rgba(255,255,255,.10);
+      --shadow: 0 12px 40px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+        "PingFang SC","Hiragino Sans GB","Microsoft YaHei", Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(106,168,255,.35), transparent 60%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(139,92,246,.30), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1100px, 92vw); margin:0 auto}
+    .card{
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* Nav */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,16,32,.65);
+      border-bottom:1px solid var(--border);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0; gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; font-weight:800;
+      letter-spacing:.3px;
+    }
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 10px 22px rgba(106,168,255,.25);
+      flex:0 0 auto;
+    }
+    nav a{
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:10px;
+      transition:.2s ease;
+    }
+    nav a:hover{color:var(--text); background: rgba(255,255,255,.06)}
+    .right{display:flex; gap:10px; align-items:center}
+    .btn{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.2s ease;
+      font-weight:700;
+    }
+    .btn:hover{transform: translateY(-1px); box-shadow: var(--shadow)}
+    .btn.primary{border:0; background: linear-gradient(135deg, var(--brand), var(--brand2))}
+    .menu-btn{display:none}
+
+    /* Hero */
+    .hero{padding:64px 0 20px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(30px, 4.2vw, 52px);
+      line-height:1.1;
+      letter-spacing:-.6px;
+    }
+    .lead{color:var(--muted); margin:0 0 18px; font-size: clamp(15px, 1.6vw, 18px)}
+    .pill-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+    .pill{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:13px;
+    }
+    .hero-card{padding:18px; position:relative; overflow:hidden}
+    .hero-card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(480px 240px at 20% 10%, rgba(106,168,255,.25), transparent 60%),
+                  radial-gradient(420px 240px at 85% 30%, rgba(139,92,246,.22), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-card > *{position:relative}
+    .profile{
+      display:flex; gap:14px; align-items:center; margin-bottom:14px;
+    }
+    .avatar{
+      width:64px; height:64px; border-radius:18px;
+      border:1px solid var(--border);
+      background:
+        radial-gradient(18px 18px at 30% 35%, rgba(255,255,255,.25), transparent 60%),
+        linear-gradient(135deg, rgba(106,168,255,.35), rgba(139,92,246,.35));
+    }
+    .profile b{display:block; font-size:18px}
+    .profile span{color:var(--muted); font-size:13px}
+    .mini{
+      padding:12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.18);
+      color:var(--muted);
+      font-size:13px;
+    }
+    .stat-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+    .stat{
+      padding:12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.18);
+    }
+    .stat b{display:block; font-size:18px}
+    .stat span{color:var(--muted); font-size:12px}
+
+    /* Sections */
+    section{padding:38px 0}
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:16px; margin-bottom:14px;
+    }
+    .section-title h2{margin:0; font-size:24px}
+    .section-title p{margin:0; color:var(--muted)}
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:16px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:16px;
+    }
+
+    /* Skills */
+    .skill{padding:16px}
+    .skill h3{margin:0 0 8px; font-size:16px}
+    .bar{
+      height:10px; border-radius:999px;
+      background: rgba(255,255,255,.08);
+      border:1px solid var(--border);
+      overflow:hidden;
+    }
+    .bar > span{
+      display:block; height:100%;
+      width:70%;
+      background: linear-gradient(135deg, rgba(106,168,255,.9), rgba(139,92,246,.9));
+    }
+    .skill p{margin:10px 0 0; color:var(--muted); font-size:13px}
+
+    /* Projects */
+    .project{padding:18px; display:flex; gap:14px; align-items:flex-start}
+    .thumb{
+      width:92px; height:92px; border-radius:20px;
+      border:1px solid var(--border);
+      background: linear-gradient(135deg, rgba(106,168,255,.28), rgba(139,92,246,.28));
+      flex:0 0 auto;
+    }
+    .project h3{margin:0 0 6px}
+    .project p{margin:0; color:var(--muted)}
+    .tags{margin-top:10px; display:flex; flex-wrap:wrap; gap:8px}
+    .tag{
+      font-size:12px; color:var(--muted);
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      padding:4px 10px; border-radius:999px;
+    }
+    .actions{margin-top:12px; display:flex; gap:10px; flex-wrap:wrap}
+    .link{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 10px; border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:700;
+      font-size:13px;
+    }
+    .link:hover{transform: translateY(-1px); box-shadow: var(--shadow)}
+
+    /* Timeline */
+    .timeline{padding:18px}
+    .t-item{display:grid; grid-template-columns: 120px 1fr; gap:14px; padding:14px 0}
+    .t-item + .t-item{border-top:1px solid var(--border)}
+    .t-time{color:var(--muted); font-size:13px}
+    .t-main b{display:block}
+    .t-main span{color:var(--muted); font-size:13px}
+
+    /* Contact */
+    .contact{display:grid; grid-template-columns: 1fr 1fr; gap:16px; align-items:start}
+    form{padding:18px}
+    label{display:block; font-size:13px; color:var(--muted); margin:10px 0 6px}
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      outline:none;
+    }
+    textarea{min-height:120px; resize:vertical}
+    .form-row{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
+    .hint{color:var(--muted); font-size:12px; margin-top:10px}
+    .aside{padding:18px}
+    footer{
+      padding:26px 0 42px;
+      color:var(--muted);
+      border-top:1px solid var(--border);
+      margin-top:24px;
+    }
+    .footer-row{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap}
+
+    .toast{
+      position:fixed; right:16px; bottom:16px;
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(17,25,54,.95);
+      box-shadow: var(--shadow);
+      transform: translateY(18px);
+      opacity:0;
+      pointer-events:none;
+      transition:.25s ease;
+      max-width: min(360px, 92vw);
+    }
+    .toast.show{opacity:1; transform: translateY(0)}
+
+    /* Mobile */
+    @media (max-width: 860px){
+      .hero-grid{grid-template-columns: 1fr}
+      .grid-3{grid-template-columns: 1fr}
+      .grid-2{grid-template-columns: 1fr}
+      .contact{grid-template-columns: 1fr}
+      nav{display:none}
+      .menu-btn{display:inline-flex}
+      nav.mobile{
+        display:flex; flex-direction:column; gap:6px;
+        padding:10px 0 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="nav">
+        <a class="brand" href="#top">
+          <span class="logo" aria-hidden="true"></span>
+          <span>你的名字</span>
+        </a>
+
+        <nav aria-label="主导航">
+          <a href="#skills">技能</a>
+          <a href="#projects">项目</a>
+          <a href="#timeline">经历</a>
+          <a href="#contact">联系</a>
+        </nav>
+
+        <div class="right">
+          <button class="btn menu-btn" id="menuBtn" type="button">菜单</button>
+          <a class="btn" href="#contact">合作</a>
+          <a class="btn primary" href="#" id="resumeBtn">下载简历</a>
+        </div>
+      </div>
+
+      <nav class="mobile" id="mobileNav" aria-label="移动端导航" style="display:none">
+        <a href="#skills">技能</a>
+        <a href="#projects">项目</a>
+        <a href="#timeline">经历</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="container hero">
+      <div class="hero-grid">
+        <div>
+          <h1>你好，我是 <span style="background:linear-gradient(135deg,var(--brand),var(--brand2)); -webkit-background-clip:text; background-clip:text; color:transparent;">你的名字</span></h1>
+          <p class="lead">
+            这里用 2～3 句话写你的定位：你做什么、擅长什么、能带来什么结果。
+            例如：我专注于写作编辑/文案改写/校对润色，帮助内容更清晰、更有说服力。
+          </p>
+
+          <div class="right" style="justify-content:flex-start; flex-wrap:wrap">
+            <a class="btn primary" href="#projects">看项目</a>
+            <a class="btn" href="#contact">联系我</a>
+          </div>
+
+          <div class="pill-row">
+            <span class="pill">📍 城市：伦敦 / 远程</span>
+            <span class="pill">💼 方向：内容/写作/设计/开发</span>
+            <span class="pill">✉️ 邮箱：name@example.com</span>
+          </div>
+        </div>
+
+        <aside class="card hero-card">
+          <div class="profile">
+            <div class="avatar" aria-hidden="true"></div>
+            <div>
+              <b>你的名字</b>
+              <span>你的职位/方向｜可接远程/兼职/全职</span>
+            </div>
+          </div>
+
+          <div class="mini">
+            ✅ 你可以把这里改成：一句“关键优势”或“代表成果”（例如：服务过 X 个客户/完成 X 个项目）。
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat"><b>10+</b><span>项目</span></div>
+            <div class="stat"><b>3 年</b><span>经验</span></div>
+            <div class="stat"><b>24h</b><span>回复</span></div>
+          </div>
+
+          <div class="mini" style="margin-top:12px">
+            提示：右上角“下载简历”按钮，我已经写了示例逻辑，你换成你的 PDF 链接即可。
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>技能</h2>
+            <p>用“技能 + 熟练度 + 场景”快速建立信任</p>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card skill">
+            <h3>写作编辑 / 润色</h3>
+            <div class="bar"><span style="width:90%"></span></div>
+            <p>适用于：论文/报告/简历/公众号文章，改善逻辑、连贯性与措辞。</p>
+          </div>
+          <div class="card skill">
+            <h3>文案改写 / 结构优化</h3>
+            <div class="bar"><span style="width:85%"></span></div>
+            <p>适用于：落地页/产品介绍/课程文案，突出卖点并提升转化。</p>
+          </div>
+          <div class="card skill">
+            <h3>一致性检查 / 语法拼写</h3>
+            <div class="bar"><span style="width:80%"></span></div>
+            <p>适用于：长文档/多作者内容，统一术语、语气、格式与引用。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>项目</h2>
+            <p>每个项目建议写：背景 → 行动 → 结果</p>
+          </div>
+          <span class="pill">建议放 4–8 个</span>
+        </div>
+
+        <div class="grid-2">
+          <article class="card project">
+            <div class="thumb" aria-hidden="true"></div>
+            <div>
+              <h3>项目 01｜作品集网站</h3>
+              <p>为自己/客户搭建个人主页，突出定位与作品结构，支持移动端浏览。</p>
+              <div class="tags">
+                <span class="tag">信息架构</span><span class="tag">UI</span><span class="tag">响应式</span>
+              </div>
+              <div class="actions">
+                <a class="link" href="#" target="_blank" rel="noopener">预览站点 ↗</a>
+                <a class="link" href="#" target="_blank" rel="noopener">案例说明 ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card project">
+            <div class="thumb" aria-hidden="true"></div>
+            <div>
+              <h3>项目 02｜文案优化</h3>
+              <p>重写产品介绍页，提炼核心卖点，优化段落层级与 CTA，降低跳出率。</p>
+              <div class="tags">
+                <span class="tag">文案</span><span class="tag">转化</span><span class="tag">编辑</span>
+              </div>
+              <div class="actions">
+                <a class="link" href="#" target="_blank" rel="noopener">前后对比 ↗</a>
+                <a class="link" href="#" target="_blank" rel="noopener">成果数据 ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card project">
+            <div class="thumb" aria-hidden="true"></div>
+            <div>
+              <h3>项目 03｜学术写作润色</h3>
+              <p>对长文档做语法、逻辑与一致性检查，提升清晰度与表达专业度。</p>
+              <div class="tags">
+                <span class="tag">润色</span><span class="tag">一致性</span><span class="tag">长文</span>
+              </div>
+              <div class="actions">
+                <a class="link" href="#" target="_blank" rel="noopener">样例片段 ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card project">
+            <div class="thumb" aria-hidden="true"></div>
+            <div>
+              <h3>项目 04｜学校项目展示</h3>
+              <p>将作业/研究内容整理成网页展示，结构清晰，方便老师与同学浏览。</p>
+              <div class="tags">
+                <span class="tag">学校</span><span class="tag">展示</span><span class="tag">结构化</span>
+              </div>
+              <div class="actions">
+                <a class="link" href="#" target="_blank" rel="noopener">查看项目 ↗</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>经历</h2>
+            <p>用时间线表达“持续积累”和“可信背景”</p>
+          </div>
+        </div>
+
+        <div class="card timeline">
+          <div class="t-item">
+            <div class="t-time">2025 - 现在</div>
+            <div class="t-main">
+              <b>自由职业 / 实习 / 工作（填写你的身份）</b>
+              <span>一句话描述你主要做什么，带来什么结果。</span>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="t-time">2023 - 2025</div>
+            <div class="t-main">
+              <b>学校 / 公司（填写）</b>
+              <span>参与过的项目/研究方向/成果（可量化更好）。</span>
+            </div>
+          </div>
+          <div class="t-item">
+            <div class="t-time">更早</div>
+            <div class="t-main">
+              <b>奖项 / 证书 / 代表经历</b>
+              <span>放 1–2 条最能证明能力的内容。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>联系</h2>
+            <p>这个表单是前端演示：点击发送会弹提示</p>
+          </div>
+        </div>
+
+        <div class="contact">
+          <form class="card" id="contactForm">
+            <div class="form-row">
+              <div>
+                <label for="name">姓名</label>
+                <input id="name" name="name" placeholder="怎么称呼你" required />
+              </div>
+              <div>
+                <label for="email">邮箱</label>
+                <input id="email" name="email" type="email" placeholder="name@example.com" required />
+              </div>
+            </div>
+
+            <label for="topic">主题</label>
+            <input id="topic" name="topic" placeholder="例如：合作 / 兼职 / 项目咨询" />
+
+            <label for="msg">内容</label>
+            <textarea id="msg" name="msg" placeholder="简单说说需求、预算范围、截止时间等"></textarea>
+
+            <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap">
+              <button class="btn primary" type="submit">发送</button>
+              <button class="btn" type="reset">清空</button>
+            </div>
+
+            <div class="hint">* 需要真实发送到邮箱/保存到表格：我可以帮你接 Formspree / Google Sheets / 后端接口。</div>
+          </form>
+
+          <aside class="card aside">
+            <h3 style="margin:0 0 10px">你的信息（可替换）</h3>
+            <p style="margin:0; color:var(--muted)">
+              邮箱：name@example.com<br/>
+              主页：yourdomain.com<br/>
+              GitHub：github.com/yourname<br/>
+              小红书/知乎/公众号：@你的账号
+            </p>
+
+            <div class="mini" style="margin-top:14px">
+              ✅ 建议：每个项目配 1 张截图（或封面图）+ 一句“结果”，作品集会立刻高级很多。
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container footer-row">
+        <div>© <span id="year"></span> 你的名字</div>
+        <div class="pill-row" style="margin:0">
+          <a class="pill" href="#skills">技能</a>
+          <a class="pill" href="#projects">项目</a>
+          <a class="pill" href="#contact">联系</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // 年份
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // 移动端菜单
+    const menuBtn = document.getElementById("menuBtn");
+    const mobileNav = document.getElementById("mobileNav");
+    if (menuBtn) {
+      menuBtn.addEventListener("click", () => {
+        const isOpen = mobileNav.style.display !== "none";
+        mobileNav.style.display = isOpen ? "none" : "flex";
+      });
+    }
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener("click", (e) => {
+        const id = a.getAttribute("href");
+        if (!id || id === "#") return;
+        const el = document.querySelector(id);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+          if (mobileNav) mobileNav.style.display = "none";
+        }
+      });
+    });
+
+    // Toast
+    const toast = document.getElementById("toast");
+    function showToast(text){
+      toast.textContent = text;
+      toast.classList.add("show");
+      window.clearTimeout(showToast._t);
+      showToast._t = window.setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    // “下载简历”按钮示例：把 link 换成你的简历 PDF
+    document.getElementById("resumeBtn").addEventListener("click", (e) => {
+      e.preventDefault();
+      // TODO: 把下面链接替换成你的简历文件地址，例如：./resume.pdf 或 https://xxx/resume.pdf
+      showToast("把 resumeBtn 的链接换成你的 PDF（例如 ./resume.pdf）即可下载。");
+    });
+
+    // 表单演示提交
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      showToast("已收到！这是前端演示表单。如需真实发送/保存，我可以帮你接后端或第三方表单服务。");
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
